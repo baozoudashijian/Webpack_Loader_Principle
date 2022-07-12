@@ -17,7 +17,7 @@ const depRelation: DepRelation = []
 
 collect(resolve(projectRoot, 'index.js'))
 
-writeFileSync('dist_2.js', generateCode())
+writeFileSync(resolve(projectRoot, 'dist', 'bundle.js'), generateCode())
 console.log('done')
 
 function generateCode() {
