@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync } from "fs";
 import { resolve, relative, dirname } from "path";
 import * as babel from '@babel/core'
 
-const projectRoot = resolve(__dirname, 'project_1')
+const projectRoot = resolve(__dirname, 'project_css')
 
 type DepRelation = {
     key: string,
@@ -66,9 +66,18 @@ function collect(filepath: string) {
     }
 
     // 获取内容，将内容放入depRelation
-    const code = readFileSync(filepath).toString()
+    let code = readFileSync(filepath).toString()
 
-    
+    if(/\.css$/.test(filepath)) {
+      code = `
+        let str = ${JSON.stringify(code)}
+        if(document) {
+          let style = document.createElement('style')
+          style.innerHTML = str
+          document.head.appendChild(style)
+        }
+      `
+    }
 
     const { code: es5Code } = babel.transform(code, {
         presets: ['@babel/preset-env']
