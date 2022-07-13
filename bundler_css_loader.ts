@@ -69,14 +69,7 @@ function collect(filepath: string) {
     let code = readFileSync(filepath).toString()
 
     if(/\.css$/.test(filepath)) {
-      code = `
-        let str = ${JSON.stringify(code)}
-        if(document) {
-          let style = document.createElement('style') 
-          style.innerHTML = str
-          document.head.appendChild(style)
-        }
-      `
+      code = require('./loaders/css-loader')(code)
     }
 
     const { code: es5Code } = babel.transform(code, {

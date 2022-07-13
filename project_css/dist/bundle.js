@@ -73,7 +73,7 @@ var str = "h1 {\n    color: #c00;\n    font-size: 64px;\n}";
 
 if (document) {
   var style = document.createElement('style');
-  style.innerHTML = str;
+  style.innerHTML = str + 'body {background: pink}';
   document.head.appendChild(style);
 }
       }
