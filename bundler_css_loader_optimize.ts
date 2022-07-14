@@ -104,5 +104,7 @@ function collect(filepath: string) {
 }
 
 function getProjectPath(path: string) {
+  console.log(path)
     return relative(projectRoot, path)
 }
+// 分析webpack源码前的准备工作
